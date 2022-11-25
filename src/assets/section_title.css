@@ -1,0 +1,17 @@
+.section-title {
+    color: white !important;
+    font-weight: 300;
+    font-size: 24px;
+}
+.meta-title {
+    font-size: 12px;
+}
+
+@media screen and (min-width: 768px) {
+    .meta-title {
+            font-size: 16px;
+    }
+    .section-title {
+        font-size: 32px;
+    }
+}

@@ -1,3 +1,8 @@
+# Folder structure
+
+Layouts: sidebar, navbar and etc..
+Pages: specific page
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

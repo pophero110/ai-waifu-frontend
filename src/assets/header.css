@@ -1,0 +1,19 @@
+.jumbotron {
+    background-image: url('images/header-background-1.png');
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center bottom;
+}
+
+@media screen and (max-width: 768px) {
+    .jumbotron {
+        background-image: url('images/header-background-2.png');
+        background-position: center;
+    }
+}
+
+.main-title {
+    margin-bottom: 30%;
+    font-family: 'Tangerine', serif;
+}
