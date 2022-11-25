@@ -2,8 +2,7 @@
   "name": "free_ai_anime_waifu_picuter_frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3000",
-    "engines": {
+  "engines": {
     "node": "16.14.2"
   },
   "dependencies": {
@@ -15,12 +14,13 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
+    "react-password-strength-bar": "^0.4.1",
     "react-scripts": "^2.1.8",
     "swiper": "^8.4.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "set PORT=4000 && react-scripts start",
+    "start": "set PORT=4000 REACT_APP_API_ENDPOINT=http:///localhost:3000 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
