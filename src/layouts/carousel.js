@@ -17,7 +17,7 @@ class Carousel extends Component {
 
     loadAiWaifuImages() {
         axios
-            .get('/api/ai_waifus')
+            .get(process.env.REACT_APP_API_ENDPOINT + 'api/ai_waifus')
             .then((res) => {
                 this.setState({ ai_waifu_images: res.data });
             })
@@ -52,10 +52,10 @@ class Carousel extends Component {
                 }}>
                 {this.state.ai_waifu_images.map((ai_waifu_image) => {
                     return (
-                        <SwiperSlide>
+                        <SwiperSlide key={ai_waifu_image.id}>
                             <img
                                 src={ai_waifu_image.image_url}
-                                alt='Missing waifu image'
+                                alt='Ops Something went wrong'
                             />
                         </SwiperSlide>
                     );
