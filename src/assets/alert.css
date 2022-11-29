@@ -1,0 +1,11 @@
+.alert {
+    z-index: 2000 !important;
+    display: flex;
+    width: 75%;
+}
+
+@media screen and (min-width: 768px) {
+    .alert {
+        width: 25%;
+    }
+}

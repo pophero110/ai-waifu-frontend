@@ -1,30 +1,53 @@
-import React, { Component } from 'react';
+import React, { useEffect, useContext } from 'react';
 import '../assets/navbar.css';
-class Navbar extends Component {
-    render() {
-        return (
-            <nav className='navbar navbar-expand-lg navbar-light d-flex justify-content-between fixed-navbar transparent'>
-                <a className='navbar-brand text-white' href='/'>
-                    Home
-                </a>
-                <ul className='navbar-nav d-flex flex-row'>
-                    <li className='nav-item'>
-                        <button
-                            type='button'
-                            className='nav-link btn btn-link'
-                            data-bs-toggle='modal'
-                            data-bs-target='#exampleModal'>
-                            Sign in
-                        </button>
-                    </li>
-                    <li className='nav-item'>
-                        <button className='nav-link btn btn-link'>
-                            Sign Out
-                        </button>
-                    </li>
-                </ul>
-            </nav>
-        );
-    }
-}
+import $ from 'jquery';
+import UserContext from '../auth_context';
+import { logout } from '../utils/auth_request';
+const Navbar = (props) => {
+	let { isLoggedIn, userLogout } = useContext(UserContext);
+	useEffect(() => {
+		$(window).scroll(function () {
+			if ($(document).scrollTop() > 3) {
+				$('.navbar').addClass('scrolled');
+			} else {
+				$('.navbar').removeClass('scrolled');
+			}
+		});
+	}, []);
+	const signoutHandler = () => {
+		logout();
+		userLogout();
+	};
+	return (
+		<div className='navbar-absolute'>
+			<nav className='navbar fixed-top p-0'>
+				<div className='d-flex justify-content-between align-items-center w-100 h-100'>
+					<div className='d-flex justify-content-center align-items-center ms-3'>
+						<a className='navbar-brand text-white' href='/'>
+							Home
+						</a>
+					</div>
+
+					<div className='d-flex justify-content-center align-items-center ms-3 text-center'>
+						{isLoggedIn ? (
+							<div
+								className='nav-link text-white'
+								onClick={signoutHandler}>
+								Sign Out
+							</div>
+						) : (
+							<div
+								type='button'
+								className='nav-link text-white'
+								data-bs-toggle='modal'
+								data-bs-target='#staticBackdrop'>
+								Sign in
+							</div>
+						)}
+					</div>
+				</div>
+			</nav>
+		</div>
+	);
+};
 export default Navbar;

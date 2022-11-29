@@ -3,8 +3,4 @@
         "javascript": "javascriptreact"
       },
       "emmet.triggerExpansionOnTab": true,
-    "search.useIgnoreFiles": false,
-    "search.exclude": {
-        "**/node_modules": false,
-    },
 }

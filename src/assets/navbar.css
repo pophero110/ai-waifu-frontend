@@ -1,12 +1,16 @@
-.fixed-navbar {
-    z-index: 100;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    transition: .2s cubic-bezier(.4, 0, .2, 1);
+.scrolled {
+    background-color: lightblue;
+    box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%);
+    background-color: rgba(0, 0, 0, .8) !important;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
 }
-
 .navbar {
+    height: 56px;
+}
+.navbar-absolute {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    padding: 10px !important;
+    height: 56px;
 }
