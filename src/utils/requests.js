@@ -1,9 +1,35 @@
 import axios from 'axios';
 
+// to do
+// catch network error 500
 export const client = axios.create({
 	baseURL: process.env.REACT_APP_API_ENDPOINT,
 	withCredentials: false,
+	validateStatus: (status) => {
+		return status < 500;
+	},
 });
+
+// do something before sending request
+// client.interceptors.request.use((config) => {
+// 	return config;
+// });
+
+const handleHttpError = (error) => {
+	console.log(error.config);
+	if (error.response) {
+		return { errors: error.response.data.errors };
+	} else if (error.request) {
+		console.log('%c  no response error', 'color:#e00051;font-size:30px;');
+		return { errors: 'Server is Donw' };
+	} else {
+		console.log(
+			'%c  something wrong with the request',
+			'color:#e00051;font-size:30px;'
+		);
+		return {};
+	}
+};
 
 export const loginStatus = () => {
 	let result = axios
@@ -12,7 +38,7 @@ export const loginStatus = () => {
 			return { data: response.data };
 		})
 		.catch((error) => {
-			return { errors: error.response.data.errors };
+			return handleHttpError(error);
 		});
 	return result;
 };
@@ -30,8 +56,7 @@ export const login = (user) => {
 			return { data: response.data };
 		})
 		.catch((error) => {
-			let { errors, reason } = error.response.data;
-			return { errors, reason };
+			return handleHttpError(error);
 		});
 	return result;
 };
@@ -49,7 +74,7 @@ export const signup = (user) => {
 			return { data: response.data };
 		})
 		.catch((error) => {
-			return { errors: error.response.data.errors };
+			return handleHttpError(error);
 		});
 	return result;
 };
@@ -60,8 +85,8 @@ export const logout = () => {
 		.then((response) => {
 			return { data: response.data };
 		})
-		.catch((errors) => {
-			return { errors: 'Something went wrong' };
+		.catch((error) => {
+			return handleHttpError(error);
 		});
 	return result;
 };
@@ -77,7 +102,19 @@ export const sendEmailConfirmation = (email) => {
 			return { data: response.data };
 		})
 		.catch((error) => {
-			return { errors: error.response.data.errors };
+			return handleHttpError(error);
+		});
+	return result;
+};
+
+export const loadAiWaifuImages = () => {
+	let result = client
+		.get(process.env.REACT_APP_API_ENDPOINT + '/api/ai_waifus')
+		.then((response) => {
+			return { data: response.data };
+		})
+		.catch((error) => {
+			return handleHttpError(error);
 		});
 	return result;
 };

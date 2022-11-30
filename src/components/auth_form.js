@@ -3,6 +3,8 @@ import SignupForm from './signup_form';
 import LoginForm from './login_form';
 import ModalHeader from './modal_header';
 import EmailConfirmation from './email_confirmation';
+import LoadingOverLay from 'react-loading-overlay';
+import $ from 'jquery';
 const AuthForm = (props) => {
 	const initialState = {
 		email: '',
@@ -12,6 +14,7 @@ const AuthForm = (props) => {
 		errors: '',
 		formToggle: true,
 		showEmailConfirmation: false,
+		showLoading: false,
 	};
 
 	const [
@@ -23,6 +26,7 @@ const AuthForm = (props) => {
 			errors,
 			formToggle,
 			showEmailConfirmation,
+			showLoading,
 		},
 		setState,
 	] = useState(initialState);
@@ -46,6 +50,23 @@ const AuthForm = (props) => {
 		}));
 	};
 
+	const showLoadingHandler = () => {
+		setState((prevState) => ({
+			...prevState,
+			showLoading: true,
+		}));
+	};
+
+	const rememberMeHandler = () => {
+		setState((prevState) => ({
+			...prevState,
+			rememberMe: !rememberMe,
+		}));
+	};
+	const closeAuthModal = () => {
+		$('#closeAuthModalButton').click();
+	};
+
 	const AuthForm = formToggle ? (
 		<LoginForm
 			email={email}
@@ -54,7 +75,10 @@ const AuthForm = (props) => {
 			clearState={clearState}
 			errors={errors}
 			showEmailConfirmationHandler={showEmailConfirmationHandler}
+			showLoadingHandler={showLoadingHandler}
 			formToggle={formToggle}
+			closeAuthModal={closeAuthModal}
+			rememberMeHandler={rememberMeHandler}
 			setState={setState}></LoginForm>
 	) : (
 		<SignupForm
@@ -64,17 +88,20 @@ const AuthForm = (props) => {
 			errors={errors}
 			clearState={clearState}
 			showEmailConfirmationHandler={showEmailConfirmationHandler}
+			showLoadingHandler={showLoadingHandler}
+			closeAuthModal={closeAuthModal}
 			setState={setState}></SignupForm>
 	);
 	return (
-		<React.Fragment>
+		<LoadingOverLay active={showLoading} spinner text='Loading...'>
 			<ModalHeader
 				showEmailConfirmation={showEmailConfirmation}
 				switchForm={switchForm}
 				formToggle={formToggle}></ModalHeader>
 			<div className='modal-body'>
 				{showEmailConfirmation ? (
-					<EmailConfirmation></EmailConfirmation>
+					<EmailConfirmation
+						closeAuthModal={closeAuthModal}></EmailConfirmation>
 				) : (
 					AuthForm
 				)}
@@ -89,7 +116,7 @@ const AuthForm = (props) => {
 					Close
 				</button>
 			</div>
-		</React.Fragment>
+		</LoadingOverLay>
 	);
 };
 

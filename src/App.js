@@ -6,14 +6,14 @@ import Carousel from './layouts/carousel';
 import SectionTitle from './components/section_titile';
 import AuthModal from './layouts/auth_modal';
 import UserContext from './auth_context';
-import { loginStatus } from './utils/auth_request';
+import { loginStatus } from './utils/requests';
 import Alert from './components/alert';
 const App = () => {
 	const alertTypeMap = {
 		primary: 'primary',
 		success: 'success',
 		warning: 'warning',
-		danger: 'dander',
+		danger: 'danger',
 	};
 	const [isLoggedIn, setLoggedIn] = useState(false);
 	const [{ showAlert, alertType, alertContent }, setAlert] = useState({
@@ -24,12 +24,18 @@ const App = () => {
 
 	const toggleAlert = (type, content) => {
 		setAlert({
-			showAlert: !showAlert,
+			showAlert: true,
 			alertType: type,
 			alertContent: content,
 		});
 	};
-	console.log('app');
+
+	const clearAlert = () => {
+		setAlert({
+			showAlert: false,
+		});
+	};
+
 	const userLogout = () => {
 		setLoggedIn(false);
 	};
@@ -39,12 +45,15 @@ const App = () => {
 	};
 
 	useEffect(() => {
-		// (async () => {
-		// 	const result = await loginStatus();
-		// 	if (result.data) {
-		// 		result.data.logged_in ? userLogin() : userLogout();
-		// 	}
-		// })();
+		(async () => {
+			const result = await loginStatus();
+			if (result.data) {
+				result.data.logged_in ? userLogin() : userLogout();
+			}
+			if (result.errors) {
+				toggleAlert('danger', result.errors);
+			}
+		})();
 	}, []);
 	return (
 		<UserContext.Provider
@@ -55,13 +64,14 @@ const App = () => {
 				toggleAlert,
 			}}>
 			<div className='App'>
-				<Alert
-					show={showAlert}
-					type={alertType}
-					contnet={alertContent}
-					alertTypeMap={alertTypeMap}></Alert>
 				<AuthModal></AuthModal>
 				<Navbar></Navbar>
+				<Alert
+					clearAlert={clearAlert}
+					show={showAlert}
+					type={alertType}
+					content={alertContent}
+					alertTypeMap={alertTypeMap}></Alert>
 				<div className='containe-fluid m-none p-non main-content'>
 					<header className='row'>
 						<div className='col'>
@@ -73,7 +83,7 @@ const App = () => {
 							<SectionTitle
 								sectionTitle='Recent Uploads'
 								metaData='1 day ago'></SectionTitle>
-							<Carousel></Carousel>
+							<Carousel toggleAlert={toggleAlert}></Carousel>
 						</div>
 					</div>
 				</div>

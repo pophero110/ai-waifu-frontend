@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
-import { loginStatus } from '../utils/auth_request';
+import { loginStatus } from '../utils/requests';
 import UserContext from '../auth_context';
 const EmailConfirmation = (props) => {
 	const { userLogin } = useContext(UserContext);
-	const handleClick = () => {
-		let result = loginStatus();
+	const { closeAuthModal } = props;
+	const handleClick = async () => {
+		let result = await loginStatus();
 		if (result.data) {
 			userLogin();
+			closeAuthModal();
 		}
 		if (result.errors) {
 			console.log('Something went wrong after email confirmation');

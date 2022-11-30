@@ -1,15 +1,15 @@
 import React from 'react';
 import PasswordStrengthBar from 'react-password-strength-bar';
-import { signup } from '../utils/auth_request';
+import { signup } from '../utils/requests';
 const SignupForm = (props) => {
 	const {
 		email,
 		password,
 		confirmPassword,
 		errors,
-		clearState,
 		setState,
 		showEmailConfirmationHandler,
+		showLoadingHandler,
 	} = props;
 
 	const signupValidate = () => {
@@ -45,14 +45,21 @@ const SignupForm = (props) => {
 
 	const signupAction = async () => {
 		if (signupValidate()) {
+			showLoadingHandler();
 			let result = await signup({ email, password, confirmPassword });
-			if (result.hasOwnProperty('data')) {
-				clearState();
+			if (result.data) {
+				setState((prevState) => ({
+					...prevState,
+					showLoading: false,
+					password: '',
+					passwordConfirmation: '',
+				}));
 				showEmailConfirmationHandler();
 			}
 			if (result.errors) {
 				setState((prevState) => ({
 					...prevState,
+					showLoading: false,
 					errors: result.errors,
 				}));
 			}
@@ -68,7 +75,7 @@ const SignupForm = (props) => {
 		setState((prevState) => ({ ...prevState, [name]: value }));
 	};
 	return (
-		<form onSubmit={handleSubmit}>
+		<form>
 			<div className='mb-3'>
 				<label htmlFor='exampleInputEmail1' className='form-label'>
 					Email address

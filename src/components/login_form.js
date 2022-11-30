@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import { login, sendEmailConfirmation } from '../utils/auth_request';
+import { login, sendEmailConfirmation } from '../utils/requests';
 import UserContext from '../auth_context';
-import $ from 'jquery';
 
+// to do
+// remember me value
 const LoginForm = (props) => {
 	const { userLogin, toggleAlert } = useContext(UserContext);
 	const {
@@ -14,11 +15,11 @@ const LoginForm = (props) => {
 		setState,
 		showEmailConfirmationHandler,
 		signinFormVisible,
+		showLoadingHandler,
+		closeAuthModal,
+		rememberMeHandler,
 	} = props;
 
-	const closeAuthModal = () => {
-		$('#closeAuthModalButton').click();
-	};
 	const handleSubmit = () => {
 		loginAction();
 	};
@@ -29,6 +30,7 @@ const LoginForm = (props) => {
 
 	const loginAction = async () => {
 		if (loginValidate()) {
+			showLoadingHandler();
 			let result = await login({ email, password, rememberMe });
 			if (result.data) {
 				clearState();
@@ -44,6 +46,7 @@ const LoginForm = (props) => {
 				}
 				setState((prevState) => ({
 					...prevState,
+					showLoading: false,
 					errors: result.errors,
 				}));
 			}
@@ -69,7 +72,7 @@ const LoginForm = (props) => {
 		return isValid;
 	};
 	return (
-		<form onSubmit={handleSubmit}>
+		<form>
 			<div className='mb-3'>
 				<label htmlFor='exampleInputEmail1' className='form-label'>
 					Email address
@@ -107,6 +110,7 @@ const LoginForm = (props) => {
 					className='form-check-input'
 					id='exampleCheck1'
 					name='rememberMe'
+					onChange={rememberMeHandler}
 				/>
 				<label className='form-check-label' htmlFor='exampleCheck1'>
 					Remember me

@@ -7,23 +7,18 @@ import 'swiper/modules/free-mode/free-mode.min.css';
 import 'swiper/modules/scrollbar/scrollbar.min.css';
 import '../assets/carousel.css';
 import errorWaifu from '../assets/images/404-waifu.png';
+import { loadAiWaifuImages } from '../utils/requests';
 const Carousel = (props) => {
 	const [aiWaifuImages, setAiWaifuImages] = useState([]);
-	const loadAiWaifuImages = () => {
-		(async () => {
-			await axios
-				.get(process.env.REACT_APP_API_ENDPOINT + '/api/ai_waifus')
-				.then((res) => {
-					setAiWaifuImages(res.data);
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-		})();
+	const fetchImages = async () => {
+		let result = await loadAiWaifuImages();
+		if (result.data) {
+			setAiWaifuImages(result.data);
+		}
 	};
 
 	useEffect(() => {
-		loadAiWaifuImages();
+		fetchImages();
 	}, []);
 
 	return (

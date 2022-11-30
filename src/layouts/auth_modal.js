@@ -4,7 +4,7 @@ import '../assets/auth_modal.css';
 const AuthModal = (props) => {
 	return (
 		<div
-			className='modal fade'
+			className='modal fade border-0 p-0'
 			id='staticBackdrop'
 			data-bs-backdrop='static'
 			data-bs-keyboard='false'

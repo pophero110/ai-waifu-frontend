@@ -1,6 +1,6 @@
 import React from 'react';
 const ModalHeader = (props) => {
-	let { switchForm, formToggle } = props;
+	let { switchForm, formToggle, showEmailConfirmation } = props;
 	let Buttons = (
 		<div className='w-100 pe-2 ps-2'>
 			<button
@@ -19,11 +19,13 @@ const ModalHeader = (props) => {
 			</button>
 		</div>
 	);
-	return (
-		<div className='modal-header bg-light w-100 d-flex justify-content-around p-2 rounded'>
-			{Buttons}
-		</div>
-	);
+	if (!showEmailConfirmation) {
+		return (
+			<div className='modal-header bg-light w-100 d-flex justify-content-around p-2 rounded'>
+				{Buttons}
+			</div>
+		);
+	}
 };
 
 export default ModalHeader;
