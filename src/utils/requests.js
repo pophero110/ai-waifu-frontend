@@ -3,8 +3,8 @@ import axios from 'axios';
 // to do
 // catch network error 500
 export const client = axios.create({
-	baseURL: process.env.REACT_APP_API_ENDPOINT,
-	withCredentials: false,
+	baseURL: process.env.BACKEND_DOMAIN,
+	withCredentials: true,
 	validateStatus: (status) => {
 		return status < 500;
 	},

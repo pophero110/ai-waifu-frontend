@@ -2,18 +2,21 @@ import React, { useContext } from 'react';
 import { loginStatus } from '../utils/requests';
 import UserContext from '../auth_context';
 const EmailConfirmation = (props) => {
-	const { userLogin } = useContext(UserContext);
+	const { userLogin, toggleAlert } = useContext(UserContext);
 	const { closeAuthModal } = props;
 	const handleClick = async () => {
 		let result = await loginStatus();
 		if (result.data) {
 			userLogin();
+			toggleAlert('success', 'Signed in Successfully');
 			closeAuthModal();
 		}
 		if (result.errors) {
 			console.log('Something went wrong after email confirmation');
 		}
 	};
+
+	const handleResendConfirmation = async () => {};
 	return (
 		<div className='text-center'>
 			<div className='fw-semibold fs-3'>Confirm your Email</div>
