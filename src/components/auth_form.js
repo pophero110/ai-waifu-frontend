@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import SignupForm from './signup_form';
-import LoginForm from './login_form';
+import SignupForm from './sign_up_form';
+import SignInForm from './sign_in_form';
 import ModalHeader from './modal_header';
 import EmailConfirmation from './email_confirmation';
 import LoadingOverLay from 'react-loading-overlay';
@@ -68,7 +68,7 @@ const AuthForm = (props) => {
 	};
 
 	const AuthForm = formToggle ? (
-		<LoginForm
+		<SignInForm
 			email={email}
 			password={password}
 			rememberMe={rememberMe}
@@ -79,7 +79,7 @@ const AuthForm = (props) => {
 			formToggle={formToggle}
 			closeAuthModal={closeAuthModal}
 			rememberMeHandler={rememberMeHandler}
-			setState={setState}></LoginForm>
+			setState={setState}></SignInForm>
 	) : (
 		<SignupForm
 			email={email}

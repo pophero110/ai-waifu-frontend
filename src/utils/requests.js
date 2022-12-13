@@ -1,14 +1,23 @@
 import axios from 'axios';
+import { AccessToken, RefreshToken } from './oauth';
 
 // to do
 // catch network error 500
 export const client = axios.create({
-	baseURL: process.env.BACKEND_DOMAIN,
-	withCredentials: true,
+	baseURL: process.env.REACT_APP_BACKEND_DOMAIN,
+	headers: { 'Content-Type': 'application/json' },
+	withCredentials: false,
 	validateStatus: (status) => {
 		return status < 500;
 	},
 });
+
+export const saveTokenToLocalStorage = (tokenObj) => {
+	if (tokenObj.access_token && tokenObj.refresh_token) {
+		localStorage.setItem(AccessToken, tokenObj.access_token);
+		localStorage.setItem(RefreshToken, tokenObj.refresh_token);
+	}
+};
 
 // do something before sending request
 // client.interceptors.request.use((config) => {
@@ -16,7 +25,6 @@ export const client = axios.create({
 // });
 
 const handleHttpError = (error) => {
-	console.log(error.config);
 	if (error.response) {
 		return { errors: error.response.data.errors };
 	} else if (error.request) {
@@ -31,29 +39,21 @@ const handleHttpError = (error) => {
 	}
 };
 
-export const loginStatus = () => {
-	let result = axios
-		.get(process.env.REACT_APP_API_ENDPOINT + '/api/logged_in')
-		.then((response) => {
-			return { data: response.data };
-		})
-		.catch((error) => {
-			return handleHttpError(error);
-		});
-	return result;
-};
-
-export const login = (user) => {
-	let result = client
-		.post('/api/login', {
-			user: {
+export const signIn = (user) => {
+	const result = client
+		.post(
+			'/api/sessions/sign_in',
+			{
 				email: user.email,
 				password: user.password,
 				remember_me: user.rememberMe ? '1' : '0',
 			},
-		})
+			{ validateStatus: (status) => status === 201 }
+		)
 		.then((response) => {
-			return { data: response.data };
+			return {
+				data: response.data,
+			};
 		})
 		.catch((error) => {
 			return handleHttpError(error);
@@ -61,17 +61,19 @@ export const login = (user) => {
 	return result;
 };
 
-export const signup = (user) => {
-	let result = client
-		.post('/api/sign_up', {
-			user: {
+export const signUp = (user) => {
+	const result = client
+		.post(
+			'/api/users/sign_up',
+			{
 				email: user.email,
 				password: user.password,
 				password_confirmation: user.confirmPassword,
 			},
-		})
+			{ validateStatus: (status) => status === 201 }
+		)
 		.then((response) => {
-			return { data: response.data };
+			return { data: true };
 		})
 		.catch((error) => {
 			return handleHttpError(error);
@@ -79,9 +81,18 @@ export const signup = (user) => {
 	return result;
 };
 
-export const logout = () => {
-	let result = client
-		.delete('/api/logout')
+export const signOut = () => {
+	client.delete('/api/sessions/sign_out', {
+		validateStatus: (status) => status === 200,
+	});
+
+	localStorage.removeItem(AccessToken);
+	localStorage.removeItem(RefreshToken);
+};
+
+export const refreshToken = () => {
+	const result = client
+		.delete('/api/sessions/refresh_token')
 		.then((response) => {
 			return { data: response.data };
 		})
@@ -92,7 +103,7 @@ export const logout = () => {
 };
 
 export const sendEmailConfirmation = (email) => {
-	let result = client
+	const result = client
 		.post('/api/confirmations', {
 			user: {
 				email: email,
@@ -108,8 +119,8 @@ export const sendEmailConfirmation = (email) => {
 };
 
 export const loadAiWaifuImages = () => {
-	let result = client
-		.get(process.env.REACT_APP_API_ENDPOINT + '/api/ai_waifus')
+	const result = client
+		.get('/api/ai_waifus')
 		.then((response) => {
 			return { data: response.data };
 		})

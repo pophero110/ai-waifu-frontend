@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { FreeMode, Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css';
@@ -11,7 +10,7 @@ import { loadAiWaifuImages } from '../utils/requests';
 const Carousel = (props) => {
 	const [aiWaifuImages, setAiWaifuImages] = useState([]);
 	const fetchImages = async () => {
-		let result = await loadAiWaifuImages();
+		const result = await loadAiWaifuImages();
 		if (result.data) {
 			setAiWaifuImages(result.data);
 		}
@@ -53,7 +52,7 @@ const Carousel = (props) => {
 							</SwiperSlide>
 						);
 				  })
-				: [122, 233, 344].map((key) => {
+				: [1, 2, 3].map((key) => {
 						return (
 							<SwiperSlide>
 								<img

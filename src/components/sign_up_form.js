@@ -1,6 +1,6 @@
 import React from 'react';
 import PasswordStrengthBar from 'react-password-strength-bar';
-import { signup } from '../utils/requests';
+import { signUp } from '../utils/requests';
 const SignupForm = (props) => {
 	const {
 		email,
@@ -8,13 +8,12 @@ const SignupForm = (props) => {
 		confirmPassword,
 		errors,
 		setState,
-		showEmailConfirmationHandler,
 		showLoadingHandler,
 	} = props;
 
-	const signupValidate = () => {
-		let errors = '';
-		let isValid = true;
+	const formValidate = () => {
+		const errors = '';
+		const isValid = true;
 
 		if (password !== confirmPassword) {
 			isValid = false;
@@ -44,17 +43,18 @@ const SignupForm = (props) => {
 	};
 
 	const signupAction = async () => {
-		if (signupValidate()) {
+		if (formValidate()) {
 			showLoadingHandler();
-			let result = await signup({ email, password, confirmPassword });
+			const result = await signUp({ email, password, confirmPassword });
+			console.log(result);
 			if (result.data) {
 				setState((prevState) => ({
 					...prevState,
 					showLoading: false,
 					password: '',
 					passwordConfirmation: '',
+					showEmailConfirmation: true,
 				}));
-				showEmailConfirmationHandler();
 			}
 			if (result.errors) {
 				setState((prevState) => ({

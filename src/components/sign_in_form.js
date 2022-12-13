@@ -1,11 +1,14 @@
 import React, { useContext } from 'react';
-import { login, sendEmailConfirmation } from '../utils/requests';
+import {
+	signIn,
+	sendEmailConfirmation,
+	saveTokenToLocalStorage,
+} from '../utils/requests';
 import UserContext from '../auth_context';
-
 // to do
 // remember me value
-const LoginForm = (props) => {
-	const { userLogin, toggleAlert } = useContext(UserContext);
+const SignInForm = (props) => {
+	const { userSignIn, toggleAlert } = useContext(UserContext);
 	const {
 		email,
 		password,
@@ -21,20 +24,20 @@ const LoginForm = (props) => {
 	} = props;
 
 	const handleSubmit = () => {
-		loginAction();
+		signInAction();
 	};
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 		setState((prevState) => ({ ...prevState, [name]: value }));
 	};
 
-	const loginAction = async () => {
-		if (loginValidate()) {
+	const signInAction = async () => {
+		if (formValidate()) {
 			showLoadingHandler();
-			let result = await login({ email, password, rememberMe });
+			const result = await signIn({ email, password, rememberMe });
 			if (result.data) {
 				clearState();
-				userLogin();
+				userSignIn();
 				closeAuthModal();
 				toggleAlert('success', 'Signed in Successfully');
 			}
@@ -42,7 +45,6 @@ const LoginForm = (props) => {
 				if (result.reason === 'EmailConfirmation') {
 					sendEmailConfirmation(email);
 					showEmailConfirmationHandler();
-					return;
 				}
 				setState((prevState) => ({
 					...prevState,
@@ -53,9 +55,9 @@ const LoginForm = (props) => {
 		}
 	};
 
-	const loginValidate = () => {
-		let errors = '';
-		let isValid = true;
+	const formValidate = () => {
+		const errors = '';
+		const isValid = true;
 		if (!password) {
 			isValid = false;
 			errors = 'Please Enter your Password';
@@ -127,4 +129,4 @@ const LoginForm = (props) => {
 	);
 };
 
-export default LoginForm;
+export default SignInForm;

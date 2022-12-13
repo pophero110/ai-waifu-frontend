@@ -6,8 +6,8 @@ import Carousel from './layouts/carousel';
 import SectionTitle from './components/section_titile';
 import AuthModal from './layouts/auth_modal';
 import UserContext from './auth_context';
-import { loginStatus } from './utils/requests';
 import Alert from './components/alert';
+import { signOut } from './utils/requests';
 const App = () => {
 	const alertTypeMap = {
 		primary: 'primary',
@@ -15,7 +15,7 @@ const App = () => {
 		warning: 'warning',
 		danger: 'danger',
 	};
-	const [isLoggedIn, setLoggedIn] = useState(false);
+	const [isSignedIn, setSignedIn] = useState(false);
 	const [{ showAlert, alertType, alertContent }, setAlert] = useState({
 		showAlert: false,
 		alertType: alertTypeMap.primary,
@@ -36,31 +36,21 @@ const App = () => {
 		});
 	};
 
-	const userLogout = () => {
-		setLoggedIn(false);
+	const userSignOut = () => {
+		signOut();
+		setSignedIn(false);
 	};
 
-	const userLogin = () => {
-		setLoggedIn(true);
+	const userSignIn = () => {
+		setSignedIn(true);
 	};
 
-	useEffect(() => {
-		(async () => {
-			const result = await loginStatus();
-			if (result.data) {
-				result.data.logged_in ? userLogin() : userLogout();
-			}
-			if (result.errors) {
-				toggleAlert('danger', result.errors);
-			}
-		})();
-	}, []);
 	return (
 		<UserContext.Provider
 			value={{
-				isLoggedIn,
-				userLogin,
-				userLogout,
+				isSignedIn,
+				userSignIn,
+				userSignOut,
 				toggleAlert,
 			}}>
 			<div className='App'>

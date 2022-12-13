@@ -2,9 +2,8 @@ import React, { useEffect, useContext } from 'react';
 import '../assets/navbar.css';
 import $ from 'jquery';
 import UserContext from '../auth_context';
-import { logout } from '../utils/requests';
 const Navbar = (props) => {
-	let { isLoggedIn, userLogout, toggleAlert } = useContext(UserContext);
+	const { isSignedIn, userSignOut, toggleAlert } = useContext(UserContext);
 	useEffect(() => {
 		$(window).scroll(function () {
 			if ($(document).scrollTop() > 3) {
@@ -16,8 +15,7 @@ const Navbar = (props) => {
 	}, []);
 	const signoutHandler = () => {
 		toggleAlert('success', 'Sign out Successfully');
-		logout();
-		userLogout();
+		userSignOut();
 	};
 	return (
 		<nav className='navbar fixed-top p-0'>
@@ -29,7 +27,7 @@ const Navbar = (props) => {
 				</div>
 
 				<div className='d-flex justify-content-center align-items-center ms-3 text-center'>
-					{isLoggedIn ? (
+					{isSignedIn ? (
 						<div
 							className='nav-link text-white'
 							onClick={signoutHandler}>

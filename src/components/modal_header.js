@@ -1,7 +1,7 @@
 import React from 'react';
 const ModalHeader = (props) => {
-	let { switchForm, formToggle, showEmailConfirmation } = props;
-	let Buttons = (
+	const { switchForm, formToggle, showEmailConfirmation } = props;
+	const Buttons = (
 		<div className='w-100 pe-2 ps-2'>
 			<button
 				onClick={switchForm}
