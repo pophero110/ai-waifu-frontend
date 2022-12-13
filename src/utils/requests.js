@@ -29,7 +29,7 @@ const handleHttpError = (error) => {
 		return { errors: error.response.data.errors };
 	} else if (error.request) {
 		console.log('%c  no response error', 'color:#e00051;font-size:30px;');
-		return { errors: 'Server is Donw' };
+		return { errors: 'Server is Down' };
 	} else {
 		console.log(
 			'%c  something wrong with the request',
