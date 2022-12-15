@@ -46,7 +46,7 @@ const Carousel = (props) => {
 						return (
 							<SwiperSlide key={ai_waifu_image.id}>
 								<img
-									src={ai_waifu_image.image_url}
+									src={ai_waifu_image.attributes.image_url}
 									alt='Ops Something went wrong'
 								/>
 							</SwiperSlide>

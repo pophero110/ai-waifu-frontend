@@ -11,8 +11,8 @@ export const client = axios.create({
 		return status < 500;
 	},
 });
-
-export const saveTokenToLocalStorage = (tokenObj) => {
+const saveTokenToLocalStorage = (tokenObj) => {
+	console.log(tokenObj);
 	if (tokenObj.access_token && tokenObj.refresh_token) {
 		localStorage.setItem(AccessToken, tokenObj.access_token);
 		localStorage.setItem(RefreshToken, tokenObj.refresh_token);
@@ -51,6 +51,7 @@ export const signIn = (user) => {
 			{ validateStatus: (status) => status === 201 }
 		)
 		.then((response) => {
+			saveTokenToLocalStorage(response.data);
 			return {
 				data: response.data,
 			};
@@ -82,8 +83,13 @@ export const signUp = (user) => {
 };
 
 export const signOut = () => {
+	console.log(localStorage.getItem(AccessToken));
+	const accessToken = localStorage.getItem(AccessToken);
 	client.delete('/api/sessions/sign_out', {
 		validateStatus: (status) => status === 200,
+		headers: {
+			Authorization: 'Bearer ' + accessToken,
+		},
 	});
 
 	localStorage.removeItem(AccessToken);
@@ -104,11 +110,13 @@ export const refreshToken = () => {
 
 export const sendEmailConfirmation = (email) => {
 	const result = client
-		.post('/api/confirmations', {
-			user: {
+		.post(
+			'/api/email_confirmations',
+			{
 				email: email,
 			},
-		})
+			{ validateStatus: (status) => status === 200 }
+		)
 		.then((response) => {
 			return { data: response.data };
 		})
@@ -122,7 +130,7 @@ export const loadAiWaifuImages = () => {
 	const result = client
 		.get('/api/ai_waifus')
 		.then((response) => {
-			return { data: response.data };
+			return { data: response.data.data };
 		})
 		.catch((error) => {
 			return handleHttpError(error);

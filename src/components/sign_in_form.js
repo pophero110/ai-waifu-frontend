@@ -1,9 +1,5 @@
 import React, { useContext } from 'react';
-import {
-	signIn,
-	sendEmailConfirmation,
-	saveTokenToLocalStorage,
-} from '../utils/requests';
+import { signIn, sendEmailConfirmation } from '../utils/requests';
 import UserContext from '../auth_context';
 // to do
 // remember me value
@@ -39,6 +35,7 @@ const SignInForm = (props) => {
 				clearState();
 				userSignIn();
 				closeAuthModal();
+
 				toggleAlert('success', 'Signed in Successfully');
 			}
 			if (result.errors) {
@@ -56,8 +53,8 @@ const SignInForm = (props) => {
 	};
 
 	const formValidate = () => {
-		const errors = '';
-		const isValid = true;
+		let errors = '';
+		let isValid = true;
 		if (!password) {
 			isValid = false;
 			errors = 'Please Enter your Password';

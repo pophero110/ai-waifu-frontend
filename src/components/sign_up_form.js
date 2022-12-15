@@ -12,8 +12,8 @@ const SignupForm = (props) => {
 	} = props;
 
 	const formValidate = () => {
-		const errors = '';
-		const isValid = true;
+		let errors = '';
+		let isValid = true;
 
 		if (password !== confirmPassword) {
 			isValid = false;
@@ -46,7 +46,6 @@ const SignupForm = (props) => {
 		if (formValidate()) {
 			showLoadingHandler();
 			const result = await signUp({ email, password, confirmPassword });
-			console.log(result);
 			if (result.data) {
 				setState((prevState) => ({
 					...prevState,

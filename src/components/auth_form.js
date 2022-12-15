@@ -50,6 +50,14 @@ const AuthForm = (props) => {
 		}));
 	};
 
+	const closeEmailConfirmationHandler = () => {
+		setState((prevState) => ({
+			...prevState,
+			formToggle: !formToggle,
+			showEmailConfirmation: false,
+		}));
+	};
+
 	const showLoadingHandler = () => {
 		setState((prevState) => ({
 			...prevState,
@@ -101,6 +109,9 @@ const AuthForm = (props) => {
 			<div className='modal-body'>
 				{showEmailConfirmation ? (
 					<EmailConfirmation
+						closeEmailConfirmationHandler={
+							closeEmailConfirmationHandler
+						}
 						closeAuthModal={closeAuthModal}></EmailConfirmation>
 				) : (
 					AuthForm
