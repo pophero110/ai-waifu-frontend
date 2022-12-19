@@ -9,14 +9,14 @@ import errorWaifu from '../assets/images/404-waifu.png';
 import { loadAiWaifuImages } from '../utils/requests';
 const Carousel = (props) => {
 	const [aiWaifuImages, setAiWaifuImages] = useState([]);
-	const fetchImages = async () => {
-		const result = await loadAiWaifuImages();
-		if (result.data) {
-			setAiWaifuImages(result.data);
-		}
-	};
 
 	useEffect(() => {
+		const fetchImages = async () => {
+			const result = await loadAiWaifuImages();
+			if (result.data) {
+				setAiWaifuImages(result.data);
+			}
+		};
 		fetchImages();
 	}, []);
 

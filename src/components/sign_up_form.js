@@ -12,7 +12,7 @@ const SignupForm = (props) => {
 	} = props;
 
 	const formValidate = () => {
-		let errors = '';
+		let errors = [];
 		let isValid = true;
 
 		if (password !== confirmPassword) {
@@ -22,17 +22,17 @@ const SignupForm = (props) => {
 
 		if (!confirmPassword) {
 			isValid = false;
-			errors = 'Please Enter your Confirm Password';
+			errors.push('Please Enter your Confirm Password');
 		}
 
 		if (!password) {
 			isValid = false;
-			errors = 'Please Enter your Password';
+			errors.push('Please Enter your Password');
 		}
 
 		if (!email) {
 			isValid = false;
-			errors = 'Please Enter your Email addresss';
+			errors.push('Please Enter your Email addresss');
 		}
 
 		setState((prevState) => ({
@@ -51,7 +51,7 @@ const SignupForm = (props) => {
 					...prevState,
 					showLoading: false,
 					password: '',
-					passwordConfirmation: '',
+					confirmPassword: '',
 					showEmailConfirmation: true,
 				}));
 			}
@@ -59,6 +59,8 @@ const SignupForm = (props) => {
 				setState((prevState) => ({
 					...prevState,
 					showLoading: false,
+					password: '',
+					confirmPassword: '',
 					errors: result.errors,
 				}));
 			}
@@ -124,7 +126,11 @@ const SignupForm = (props) => {
 					onChange={handleChange}
 				/>
 			</div>
-			<div className='text-danger mb-3'>{errors}</div>
+			<div className='text-danger mb-3'>
+				{errors.map((error) => (
+					<div>{error}</div>
+				))}
+			</div>
 			<button
 				type='button'
 				className='btn btn-primary button-toggle border-0'

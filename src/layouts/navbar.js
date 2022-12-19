@@ -22,7 +22,7 @@ const Navbar = (props) => {
 			<div className='d-flex justify-content-between align-items-center w-100 h-100'>
 				<div className='d-flex justify-content-center align-items-center ms-3'>
 					<a className='navbar-brand text-white' href='/'>
-						Home
+						MyLittleThings
 					</a>
 				</div>
 

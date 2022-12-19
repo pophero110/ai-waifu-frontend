@@ -4,14 +4,13 @@ import SignInForm from './sign_in_form';
 import ModalHeader from './modal_header';
 import EmailConfirmation from './email_confirmation';
 import LoadingOverLay from 'react-loading-overlay';
-import $ from 'jquery';
 const AuthForm = (props) => {
 	const initialState = {
 		email: '',
 		password: '',
 		confirmPassword: '',
 		rememberMe: false,
-		errors: '',
+		errors: [],
 		formToggle: true,
 		showEmailConfirmation: false,
 		showLoading: false,
@@ -38,7 +37,7 @@ const AuthForm = (props) => {
 	const switchForm = () => {
 		setState((prevState) => ({
 			...prevState,
-			errors: '',
+			errors: [],
 			formToggle: !formToggle,
 		}));
 	};
@@ -72,7 +71,7 @@ const AuthForm = (props) => {
 		}));
 	};
 	const closeAuthModal = () => {
-		$('#closeAuthModalButton').click();
+		document.getElementById('closeAuthModalButton').click();
 	};
 
 	const AuthForm = formToggle ? (

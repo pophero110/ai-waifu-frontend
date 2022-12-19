@@ -1,32 +1,36 @@
 .m-none {
-  margin: 0 0 0 0 !important;
+	margin: 0 0 0 0 !important;
 }
 .p-none {
-  padding: 0 !important;
+	padding: 0 !important;
 }
 
 body {
-  background-color: #303030 !important;
+	background-color: #303030 !important;
 }
 
 .transparent {
-  background-color: transparent;
+	background-color: transparent;
 }
 
 .semi-transparent {
-  background-color: rgba(0, 0, 0, .8) !important;
+	background-color: rgba(0, 0, 0, 0.8) !important;
 }
 
 .nav-link {
-  width: 100px;
+	width: 100px;
 }
 
 .row-gap {
-  margin-top: 2rem !important;
+	margin-top: 2rem !important;
 }
 
 @media screen and (min-width: 768px) {
-  .row-gap {
-      margin-top: 3rem !important;
-    }
+	.row-gap {
+		margin-top: 3rem !important;
+	}
+}
+
+.card {
+	text-decoration: none;
 }

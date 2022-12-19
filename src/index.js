@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import 'semantic-ui-css/semantic.min.css';
 import App from './App';
 import { Helmet } from 'react-helmet';
 import reportWebVitals from './reportWebVitals';
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	<React.StrictMode>
+	<React.Fragment>
 		<Helmet>
 			<link
 				href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css'
@@ -27,7 +27,7 @@ root.render(
 				crossorigin='anonymous'></script>
 		</Helmet>
 		<App />
-	</React.StrictMode>
+	</React.Fragment>
 );
 
 // If you want to start measuring performance in your app, pass a function
