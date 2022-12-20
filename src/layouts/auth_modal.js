@@ -7,7 +7,7 @@ const AuthModal = (props) => {
 			className='modal fade border-0 p-0'
 			id='staticBackdrop'
 			data-bs-backdrop='static'
-			data-bs-keyboard='false'
+			data-bs-keyboard='true'
 			tabIndex='-1'
 			aria-labelledby='staticBackdropLabel'
 			aria-hidden='true'>
