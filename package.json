@@ -20,7 +20,6 @@
 		"react-helmet": "^6.1.0",
 		"react-loading-overlay": "^1.0.1",
 		"react-password-strength-bar": "^0.4.1",
-		"react-router-dom": "^6.5.0",
 		"react-scripts": "^2.1.8",
 		"swiper": "^8.4.5",
 		"web-vitals": "^2.1.4"
