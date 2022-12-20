@@ -8,7 +8,11 @@ function GameModal({ gameName, setGameName }) {
 		setCount(count + 1);
 	};
 	const contentMap = {
-		Snake: <SnakeGame key={count}></SnakeGame>,
+		Snake: (
+			<SnakeGame
+				resetGamehandler={resetGamehandler}
+				key={count}></SnakeGame>
+		),
 	};
 	const exitGameHandler = () => {
 		setGameName('');
@@ -23,7 +27,7 @@ function GameModal({ gameName, setGameName }) {
 			aria-labelledby='exampleModalLabel'
 			aria-hidden='true'>
 			<div className='modal-dialog modal-dialog-centered'>
-				<div className='modal-content bg-transparent'>
+				<div className='modal-content border-0 bg-transparent'>
 					<div className='modal-body p-0'>{contentMap[gameName]}</div>
 					<div
 						className='d-flex justify-content-around'

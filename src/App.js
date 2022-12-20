@@ -10,7 +10,7 @@ import Alert from './components/alert';
 import { signOut } from './utils/requests';
 import GameCard from './components/game_card';
 import GameModal from './layouts/game_modal';
-import { CardGroup } from 'semantic-ui-react';
+import CardGroup from './layouts/card_group';
 const App = () => {
 	const alertTypeMap = {
 		primary: 'primary',
@@ -76,6 +76,9 @@ const App = () => {
 						<div className='col'>
 							<SectionTitle sectionTitle='Little Games'></SectionTitle>
 							<CardGroup>
+								<GameCard setGameName={setGameName}></GameCard>
+								<GameCard setGameName={setGameName}></GameCard>
+								<GameCard setGameName={setGameName}></GameCard>
 								<GameCard setGameName={setGameName}></GameCard>
 							</CardGroup>
 							{/* <SectionTitle

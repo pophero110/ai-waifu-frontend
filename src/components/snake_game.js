@@ -1,7 +1,7 @@
 import React from 'react';
 import '../assets/snake_game.css';
 import { useEffect } from 'react';
-const SnakeGame = () => {
+const SnakeGame = ({ resetGamehandler }) => {
 	useEffect(() => {
 		class snakePart {
 			constructor(x, y) {
@@ -23,6 +23,9 @@ const SnakeGame = () => {
 		};
 
 		const keydown = (event) => {
+			if (event.keyCode === 82) {
+				resetGamehandler();
+			}
 			if (event.keyCode === 38) {
 				if (yvelocity === 1) return;
 				yvelocity = -1; //move one tile up
@@ -138,6 +141,13 @@ const SnakeGame = () => {
 			draw.textAlign = 'center';
 			draw.textBaseline = 'middle';
 			draw.fillText('Game Over', canvas.width / 2, canvas.height / 2);
+			draw.font = '20px serif';
+			draw.textAlign = 'center';
+			draw.fillText(
+				"Press 'R' to start a new game",
+				canvas.width / 2,
+				canvas.height / 2 + 48
+			);
 		};
 
 		const drawScorce = () => {
@@ -159,7 +169,6 @@ const SnakeGame = () => {
 			if (isGameOver()) {
 				drawGameOver();
 				clearInterval(game);
-				document.body.removeEventListener('keydown', keydown);
 				return;
 			}
 		};
@@ -176,7 +185,7 @@ const SnakeGame = () => {
 			id='snakeGame'
 			height={400}
 			width={400}
-			className='p-0 position-relative'></canvas>
+			className='p-0 position-relative rounded'></canvas>
 	);
 };
 export default SnakeGame;

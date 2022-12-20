@@ -1,5 +1,5 @@
 import React from 'react';
-
+import '../assets/game_card.css';
 const GameCard = ({ setGameName }) => {
 	const setGameNameHandler = () => {
 		setGameName('Snake');
@@ -11,7 +11,7 @@ const GameCard = ({ setGameName }) => {
 			data-bs-toggle='modal'
 			data-bs-target='#exampleModal'
 			onClick={setGameNameHandler}
-			className='card'>
+			className='card me-3'>
 			<div className='card-body'>
 				<h5 className='card-title'>Snake</h5>
 				<p className='card-text'>A classic snake game</p>
