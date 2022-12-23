@@ -2,6 +2,7 @@ import React from 'react';
 import SnakeGame from '../components/snake_game';
 import '../assets/game_modal.css';
 import { useState } from 'react';
+import TicTacToeGame from '../components/tic_tac_toe_game';
 function GameModal({ gameName, setGameName }) {
 	const [count, setCount] = useState(0);
 	const resetGamehandler = () => {
@@ -12,6 +13,11 @@ function GameModal({ gameName, setGameName }) {
 			<SnakeGame
 				resetGamehandler={resetGamehandler}
 				key={count}></SnakeGame>
+		),
+		TicTacToe: (
+			<TicTacToeGame
+				resetGamehandler={resetGamehandler}
+				key={count}></TicTacToeGame>
 		),
 	};
 	const exitGameHandler = () => {

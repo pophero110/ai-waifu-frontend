@@ -76,15 +76,13 @@ const App = () => {
 						<div className='col'>
 							<SectionTitle sectionTitle='Little Games'></SectionTitle>
 							<CardGroup>
-								<GameCard setGameName={setGameName}></GameCard>
-								<GameCard setGameName={setGameName}></GameCard>
-								<GameCard setGameName={setGameName}></GameCard>
-								<GameCard setGameName={setGameName}></GameCard>
+								<GameCard
+									gameName={'Snake'}
+									setGameName={setGameName}></GameCard>
+								<GameCard
+									gameName={'TicTacToe'}
+									setGameName={setGameName}></GameCard>
 							</CardGroup>
-							{/* <SectionTitle
-								sectionTitle='Recent Uploads'
-								metaData='1 day ago'></SectionTitle> */}
-							{/* <Carousel toggleAlert={toggleAlert}></Carousel> */}
 						</div>
 					</div>
 					<div className='row row-gap'>
@@ -93,9 +91,7 @@ const App = () => {
 							<CardGroup></CardGroup>
 						</div>
 					</div>
-					<div className='row row-gap p-0'>
-						{/* <SnakeGame></SnakeGame> */}
-					</div>
+					<div className='row row-gap p-0'></div>
 				</div>
 			</div>
 		</UserContext.Provider>

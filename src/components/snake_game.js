@@ -181,7 +181,6 @@ const SnakeGame = ({ resetGamehandler }) => {
 	}, []);
 	return (
 		<canvas
-			key={1}
 			id='snakeGame'
 			height={400}
 			width={400}
